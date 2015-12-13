@@ -17,17 +17,22 @@
     <!-- Bootstrap js Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+
+    <script src="/tags/mapview.tag" type="riot/tag"></script>
+    <script src="https://cdn.jsdelivr.net/riot/2.3.11/riot+compiler.min.js"></script>
+
+
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsucOarDlUutgkVsfF7616Ew8qFtupRuM&callback=mapsLoaded">
     </script>
 
-    <script src="./tags/mapview.tag" type="riot/tag"></script>
-    <script src="https://cdn.jsdelivr.net/riot/2.3/riot+compiler.min.js"></script>
-
     <script>
-      riot.mount("mapview", { callback:initMap })
-      //console.log("hello")
-      //console.log(mapView)
+      var mapView;
+      riot.compile(function() {
+        mapView = riot.mount('mapview')
+      })
+      console.log("hello")
+      console.log(mapView)
 
       function initMap(_mapView) {
         // tell riot to init the fucking map
@@ -37,11 +42,18 @@
 
       function mapsLoaded() {
         console.log("maps loaded")
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-        console.log("map" + map)
+        if(document.getElementById('map')) {
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 8
+          });
+          console.log("map" + map)
+          console.log(mapView)
+        } else {
+          console.log("map doesn't exist")
+          setTimeout(mapsLoaded, 20)
+        }
+
       }
 
     </script>
