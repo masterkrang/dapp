@@ -25,11 +25,18 @@
     <script src="https://cdn.jsdelivr.net/riot/2.3.11/riot+compiler.min.js"></script>
 
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsucOarDlUutgkVsfF7616Ew8qFtupRuM&callback=mapsLoaded">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsucOarDlUutgkVsfF7616Ew8qFtupRuM&callback=mapLoaded">
     </script>
 
     <script src="/assets/js/app.js"></script>
 
+    <script>
+      function mapLoaded() {
+        window.mapHasLoaded = true
+        console.log("1 mapLoaded")
+        //console.log(window.mapView)
+      }
+    </script>
 
   </body>
 
